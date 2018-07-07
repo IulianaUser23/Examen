@@ -22,25 +22,26 @@ public class GUI extends JFrame {
     private JTextField numeFisier = new JTextField();
 
 
-    private JLabel labelOrasPornire = new JLabel("Oras Pornire");
+    private JLabel labelOrasPornire = new JLabel("Oras Pornire: ");
     private JTextField OrasPornire = new JTextField();
 
-    private JLabel labelOrasDestinatie = new JLabel("Oras Destinatie");
+    private JLabel labelOrasDestinatie = new JLabel("Oras Destinatie: ");
     private JTextField OrasDestinatie = new JTextField();
 
-    private JLabel labelDurata = new JLabel("Durata calatoriei");
+    private JLabel labelDurata = new JLabel("Durata calatoriei: ");
     private JTextField Durata = new JTextField();
 
-    private JLabel labelTipuriVagoane = new JLabel("Cate tipuri de vagoane");
+    private JLabel labelTipuriVagoane = new JLabel("Cate tipuri de vagoane: ");
     private JTextField TipuriVagoane = new JTextField();
 
     private JLabel labelTonaj= new JLabel("Tonajul");
     private JTextField Tonaj = new JTextField();
 
-    private JButton butonSalveaza = new JButton("Salveaza"); //am creat butoane
-
     private JButton butonAddRutaCalatori = new JButton("Adauga ruta calatori");
     private JButton butonAddRutaMarfa = new JButton("Adauga ruta marfa");
+
+
+    private JButton butonSalveaza = new JButton("Salveaza");
 
     //imi fac constructorul, unde iau ca param service-ul
     public GUI(Service ser){
@@ -60,28 +61,29 @@ public class GUI extends JFrame {
         this.setSize(new Dimension(600,400));
         this.add(this.lista, BorderLayout.NORTH); //fereastra cu elem situata pe border centrat
 
-        JPanel componentaJos = new JPanel(new GridLayout(2,2));
+        JPanel componentaJos = new JPanel(new GridLayout(1,1));
         componentaJos.add(this.labelNumeFisier);
         componentaJos.add(this.numeFisier);
         componentaJos.add(this.butonSalveaza);//pentru aceste doua operatii
         this.add(componentaJos,BorderLayout.SOUTH); //adaug componetaJos JPanel in partea de jos a BorderLayout-ului
 
         JPanel componentaPrincipala = new JPanel(new GridLayout(6,4) );
-        JPanel componentaFr = componentaPrincipala;
-        JPanel componentaMS = componentaPrincipala;
-        componentaFr.add(this.labelOrasPornire);
-        componentaFr.add(this.OrasPornire);
-        componentaFr.add(this.labelOrasDestinatie);
-        componentaFr.add(this.OrasDestinatie);
-        componentaFr.add(this.labelDurata);
-        componentaFr.add(this.Durata);
-        componentaMS.add(this.labelTipuriVagoane);
-        componentaMS.add(this.TipuriVagoane);
-        componentaMS.add(this.labelTonaj);
-        componentaMS.add(this.Tonaj);
+        JPanel componentaCalatori = componentaPrincipala;
+        JPanel componentaMarfa = componentaPrincipala;
 
-        componentaFr.add(this.butonAddRutaCalatori);
-        componentaMS.add(this.butonAddRutaMarfa);
+        componentaCalatori.add(this.labelOrasPornire);
+        componentaCalatori.add(this.OrasPornire);
+        componentaCalatori.add(this.labelOrasDestinatie);
+        componentaCalatori.add(this.OrasDestinatie);
+        componentaCalatori.add(this.labelDurata);
+        componentaCalatori.add(this.Durata);
+        componentaCalatori.add(this.labelTipuriVagoane);
+        componentaCalatori.add(this.TipuriVagoane);
+        componentaMarfa.add(this.labelTonaj);
+        componentaMarfa.add(this.Tonaj);
+
+        componentaCalatori.add(this.butonAddRutaCalatori);
+        componentaMarfa.add(this.butonAddRutaMarfa);
 
         this.add(componentaPrincipala, BorderLayout.CENTER);
 
@@ -103,7 +105,7 @@ public class GUI extends JFrame {
         this.butonAddRutaCalatori.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String op =OrasPornire.getText();
+                String op = OrasPornire.getText();
                 String od = OrasDestinatie.getText();
                 int dr = Integer.parseInt(Durata.getText());
                 int tp = Integer.parseInt(TipuriVagoane.getText());
@@ -114,7 +116,12 @@ public class GUI extends JFrame {
                    JOptionPane.showMessageDialog(null, ex.getMessage());
               }
                populeazaLista();
-               //pot pune sa imi stearga ce am adaugat eu in fiecare casuta dupa apasarea butonului add
+                //sterg ceea ce am scris
+                OrasPornire.setText("");
+                OrasDestinatie.setText("");
+                Durata.setText("");
+                TipuriVagoane.setText("");
+
             }
         });
     }
@@ -133,6 +140,10 @@ public class GUI extends JFrame {
                     JOptionPane.showMessageDialog(null, ex.getMessage());
                 }
                 populeazaLista();
+                OrasPornire.setText("");
+                OrasDestinatie.setText("");
+                Tonaj.setText("");
+
             }
         });
     }
