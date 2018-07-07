@@ -28,10 +28,8 @@ public class Repository {
     }
     //functia de adaugare
     public void add (Ruta r) throws Exception {
-       Ruta ruta =this.find(r.getOrasDestinatie());
-        if(ruta != null)
-            throw new Exception("Ruta existenta!"); //daca pun throw new Exception, imi si prinde aici exceptia
-        this.rute.add(r);
+       
+         this.rute.add(r);
     }
     //functie de getAll
     public ArrayList<Ruta> getAll() {
