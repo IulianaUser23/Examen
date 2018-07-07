@@ -19,7 +19,7 @@ public class Service {
     }
 
     //functia de adaugare
-    public void addProdus (Ruta r) throws Exception {
+    public void addRuta (Ruta r) throws Exception {
         this.repo.add(r);
     }
 

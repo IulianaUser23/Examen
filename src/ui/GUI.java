@@ -1,13 +1,13 @@
 package ui;
 
 import domain.Ruta;
+import domain.RutaCalatori;
 import service.Service;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileNotFoundException;
 
 public class GUI extends JFrame {
 
@@ -20,17 +20,21 @@ public class GUI extends JFrame {
     private JLabel labelNumeFisier = new JLabel("Nume fisier");
     private JTextField numeFisier = new JTextField();
 
+
     private JLabel labelOrasPornire = new JLabel("Oras Pornire");
-    private JTextField orasPornire = new JTextField();
+    private JTextField OrasPornire = new JTextField();
+
     private JLabel labelOrasDestinatie = new JLabel("Oras Destinatie");
-    private JTextField orasDestinatie = new JTextField();
+    private JTextField OrasDestinatie = new JTextField();
+
     private JLabel labelDurata = new JLabel("Durata calatoriei");
-    private JTextField durata = new JTextField();
+    private JTextField Durata = new JTextField();
+
     private JLabel labelTipuriVagoane = new JLabel("Cate tipuri de vagoane");
-    private JTextField tipuriVagoane = new JTextField();
+    private JTextField TipuriVagoane = new JTextField();
 
     private JLabel labelTonaj= new JLabel("Tonajul");
-    private JTextField tonaj = new JTextField();
+    private JTextField Tonaj = new JTextField();
 
     private JButton butonSalveaza = new JButton("Salveaza"); //am creat butoane
 
@@ -43,9 +47,10 @@ public class GUI extends JFrame {
         this.initGUI();
         this.populeazaLista();
 
-       // this.handlerButonAddRutaCalatori();
-      //  this.handlerButonAddRutaMarfa();
+       this.handlerButonAddRutaCalatori();
+       this.handlerButonAddRutaMarfa();
     }
+
 
     public void initGUI(){
 
@@ -64,17 +69,17 @@ public class GUI extends JFrame {
         JPanel componentaFr = componentaPrincipala;
         JPanel componentaMS = componentaPrincipala;
         componentaFr.add(this.labelOrasPornire);
-        componentaFr.add(this.orasPornire);
+        componentaFr.add(this.OrasPornire);
         componentaFr.add(this.labelOrasDestinatie);
-        componentaFr.add(this.orasDestinatie);
+        componentaFr.add(this.OrasDestinatie);
         componentaFr.add(this.labelDurata);
-        componentaFr.add(this.durata);
+        componentaFr.add(this.Durata);
 
         componentaMS.add(this.labelTipuriVagoane);
-        componentaMS.add(this.tipuriVagoane);
+        componentaMS.add(this.TipuriVagoane);
 
         componentaMS.add(this.labelTonaj);
-        componentaMS.add(this.tonaj);
+        componentaMS.add(this.Tonaj);
 
         componentaFr.add(this.butonAddRutaCalatori);
         componentaMS.add(this.butonAddRutaMarfa);
@@ -95,6 +100,28 @@ public class GUI extends JFrame {
         }this.lista.setModel(listModel);
     }
 
+    private void handlerButonAddRutaCalatori() {
+        this.butonAddRutaCalatori.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String op =OrasPornire.getText();
+                String od = OrasDestinatie.getText();
+                int dr = Integer.parseInt(Durata.getText());
+                int tp = Integer.parseInt(TipuriVagoane.getText());
+                try {
+                   Ruta r = new RutaCalatori(op, od, dr, tp);
+                   service.addRuta(r);
+               } catch (Exception ex) {
+                   JOptionPane.showMessageDialog(null, ex.getMessage());
+              }
+               populeazaLista();
+               //pot pune sa imi stearga ce am adaugat eu in fiecare casuta dupa apasarea butonului add
+            }
+        });
+    }
+
+    private void handlerButonAddRutaMarfa() {
+    }
 //    //creez functia de adaugare
 //    public void handlerButonAddFr(){
 //        this.butonAddF.addActionListener(new ActionListener() {

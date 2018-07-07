@@ -20,10 +20,10 @@ public class Main {
         Ruta rt2 = new RutaMarfa("bistrita", "Jucu", 7) ;
 
         try{
-            ser.addProdus(r1);
-            ser.addProdus(r2);
-            ser.addProdus(rt1);
-            ser.addProdus(rt2);
+            ser.addRuta(r1);
+            ser.addRuta(r2);
+            ser.addRuta(rt1);
+            ser.addRuta(rt2);
         }catch (Exception e){}
 
        GUI ui = new GUI(ser);
