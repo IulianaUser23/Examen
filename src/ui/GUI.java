@@ -79,6 +79,11 @@ public class GUI extends JFrame {
         componentaCalatori.add(this.Durata);
         componentaCalatori.add(this.labelTipuriVagoane);
         componentaCalatori.add(this.TipuriVagoane);
+
+        componentaMarfa.add(this.labelOrasPornire);
+        componentaMarfa.add(this.OrasPornire);
+        componentaMarfa.add(this.labelOrasDestinatie);
+        componentaMarfa.add(this.OrasDestinatie);
         componentaMarfa.add(this.labelTonaj);
         componentaMarfa.add(this.Tonaj);
 
@@ -127,7 +132,7 @@ public class GUI extends JFrame {
     }
 
     private void handlerButonAddRutaMarfa() {
-        this.butonAddRutaCalatori.addActionListener(new ActionListener() {
+        this.butonAddRutaMarfa.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String op =OrasPornire.getText();
