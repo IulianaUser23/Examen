@@ -14,11 +14,6 @@ public class Repository {
 
     private ArrayList<Ruta> rute = new ArrayList<Ruta>();
     public Ruta find (String orasDestinatie){
-//        for (Produs p: this.produse)
-//                if (p.getId() == id)
-//                    return p;
-//
-//            return null;
 
         Ruta r = this.rute.stream()
                 .filter(pr -> pr.getOrasDestinatie().equals(orasDestinatie))
@@ -28,7 +23,7 @@ public class Repository {
     }
     //functia de adaugare
     public void add (Ruta r) throws Exception {
-       
+
          this.rute.add(r);
     }
     //functie de getAll
