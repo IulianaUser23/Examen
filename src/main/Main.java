@@ -19,14 +19,14 @@ public class Main {
         Ruta rt1 = new RutaMarfa("bistrita", "beclean", 2);
         Ruta rt2 = new RutaMarfa("bistrita", "Jucu", 7) ;
 
-//        try{
-//            ser.addProdus(r1);
-//            ser.addProdus(r2);
-//            ser.addProdus(rt1);
-//            ser.addProdus(rt2);
-//        }catch (Exception e){}
-//
-       // GUI ui = new GUI();
-       // ui.run();
+        try{
+            ser.addProdus(r1);
+            ser.addProdus(r2);
+            ser.addProdus(rt1);
+            ser.addProdus(rt2);
+        }catch (Exception e){}
+
+       GUI ui = new GUI(ser);
+       ui.initGUI();
     }
 }

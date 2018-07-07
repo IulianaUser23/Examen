@@ -1,5 +1,6 @@
 package ui;
 
+import domain.Ruta;
 import service.Service;
 
 import javax.swing.*;
@@ -15,8 +16,8 @@ public class GUI extends JFrame {
     //creez lista (spatiul) in care vor fi afisate elem
     private JList<String > lista = new JList<String>();
     //panoul pt nume fisier (window)
+
     private JLabel labelNumeFisier = new JLabel("Nume fisier");
-    //textul cu nume fisier
     private JTextField numeFisier = new JTextField();
 
     private JLabel labelOrasPornire = new JLabel("Oras Pornire");
@@ -42,8 +43,8 @@ public class GUI extends JFrame {
         this.initGUI();
         this.populeazaLista();
 
-        this.handlerButonAddRutaCalatori();
-        this.handlerButonAddRutaMarfa();
+       // this.handlerButonAddRutaCalatori();
+      //  this.handlerButonAddRutaMarfa();
     }
 
     public void initGUI(){
@@ -56,27 +57,27 @@ public class GUI extends JFrame {
         JPanel componentaJos = new JPanel(new GridLayout(2,2));
         componentaJos.add(this.labelNumeFisier);
         componentaJos.add(this.numeFisier);
-        componentaJos.add(this.butonSterge);  //problema spune sa salvam si sa stergem si atunci adaugam butoane
         componentaJos.add(this.butonSalveaza);//pentru aceste doua operatii
         this.add(componentaJos,BorderLayout.SOUTH); //adaug componetaJos JPanel in partea de jos a BorderLayout-ului
 
         JPanel componentaPrincipala = new JPanel(new GridLayout(6,4) );
         JPanel componentaFr = componentaPrincipala;
         JPanel componentaMS = componentaPrincipala;
-        componentaFr.add(this.labelId);
-        componentaFr.add(this.Id);
-        componentaFr.add(this.labelClsEnerg);
-        componentaFr.add(this.ClsEnerg);
-        componentaFr.add(this.labelAreCong);
-        componentaFr.add(this.AreCong);
+        componentaFr.add(this.labelOrasPornire);
+        componentaFr.add(this.orasPornire);
+        componentaFr.add(this.labelOrasDestinatie);
+        componentaFr.add(this.orasDestinatie);
+        componentaFr.add(this.labelDurata);
+        componentaFr.add(this.durata);
 
-        componentaMS.add(this.labelIdM);
-        componentaMS.add(this.IdM);
-        componentaMS.add(this.labelCantE);
-        componentaMS.add(this.CantE);
+        componentaMS.add(this.labelTipuriVagoane);
+        componentaMS.add(this.tipuriVagoane);
 
-        componentaFr.add(this.butonAddF);
-        componentaMS.add(this.butonAddM);
+        componentaMS.add(this.labelTonaj);
+        componentaMS.add(this.tonaj);
+
+        componentaFr.add(this.butonAddRutaCalatori);
+        componentaMS.add(this.butonAddRutaMarfa);
 
         this.add(componentaPrincipala, BorderLayout.CENTER);
 
@@ -89,82 +90,69 @@ public class GUI extends JFrame {
     //functia de populare a listei
     public void populeazaLista(){
         DefaultListModel<String> listModel = new DefaultListModel<>(); //am facut modelul listei si populez cu un for
-        for (Produs p: this.service.getAll()){
-            listModel.addElement(p.toString());  //populez lista folosind functia toString
+        for (Ruta s: this.service.getAll()){
+            listModel.addElement(s.toString());  //populez lista folosind functia toString
         }this.lista.setModel(listModel);
     }
 
-    //creez functia de adaugare
-    public void handlerButonAddFr(){
-        this.butonAddF.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int id = Integer.parseInt(Id.getText());
-                String clsEnerg = ClsEnerg.getText();
-                boolean areCongelator = AreCong.isValid();
-                try {
-                    Produs fr = new Frigider(id,clsEnerg,areCongelator);
-                    service.addProdus(fr);
-                } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(null, ex.getMessage());
-                }
-                populeazaLista();
-                //pot pune sa imi stearga ce am adaugat eu in fiecare casuta dupa apasarea butonului add
-                Id.setText("");
-                ClsEnerg.setText("");
-                AreCong.setText("");
-
-            }
-        });
-    }
-    public void handlerButonAddM(){
-        this.butonAddM.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int id = Integer.parseInt(IdM.getText());
-                double cantE = Double.parseDouble(CantE.getText());
-                try {
-                    Produs m = new MasinaSpalat(id,cantE);
-                    service.addProdus(m);
-                } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(null, ex.getMessage());
-                }
-                populeazaLista();
-                //pot pune sa imi stearga ce am adaugat eu in fiecare casuta dupa apasarea butonului add
-                IdM.setText("");
-                CantE.setText("");
-
-            }
-        });
-    }
-
-    //creez functia de stergere: cand dau click pe un eveniment si apoi buton de sterge sa se stearga produsul
-    public void handlerButonSterge(){
-        this.butonSterge.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int idx = lista.getSelectedIndex();
-                service.sterge(idx);
-
-                populeazaLista();
-
-            }
-        });
-    }
-
-    //creez functia care atunci cand apas butonul salveaza sa faca operatiunea
-    public void handlerButonSalveaza(){
-        this.butonSalveaza.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String numeFis = numeFisier.getText();
-                try{
-                    service.salveaza(numeFis);
-                }catch (FileNotFoundException el){
-                    el.printStackTrace();
-                }
-            }
-        });
-    }
+//    //creez functia de adaugare
+//    public void handlerButonAddFr(){
+//        this.butonAddF.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                int id = Integer.parseInt(Id.getText());
+//                String clsEnerg = ClsEnerg.getText();
+//                boolean areCongelator = AreCong.isValid();
+//                try {
+//                    Produs fr = new Frigider(id,clsEnerg,areCongelator);
+//                    service.addProdus(fr);
+//                } catch (Exception ex) {
+//                    JOptionPane.showMessageDialog(null, ex.getMessage());
+//                }
+//                populeazaLista();
+//                //pot pune sa imi stearga ce am adaugat eu in fiecare casuta dupa apasarea butonului add
+//                Id.setText("");
+//                ClsEnerg.setText("");
+//                AreCong.setText("");
+//
+//            }
+//        });
+//    }
+//    public void handlerButonAddM(){
+//        this.butonAddM.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                int id = Integer.parseInt(IdM.getText());
+//                double cantE = Double.parseDouble(CantE.getText());
+//                try {
+//                    Produs m = new MasinaSpalat(id,cantE);
+//                    service.addProdus(m);
+//                } catch (Exception ex) {
+//                    JOptionPane.showMessageDialog(null, ex.getMessage());
+//                }
+//                populeazaLista();
+//                //pot pune sa imi stearga ce am adaugat eu in fiecare casuta dupa apasarea butonului add
+//                IdM.setText("");
+//                CantE.setText("");
+//
+//            }
+//        });
+//    }
+//
+//
+//    //creez functia care atunci cand apas butonul salveaza sa faca operatiunea
+//    public void handlerButonSalveaza(){
+//        this.butonSalveaza.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                String numeFis = numeFisier.getText();
+//                try{
+//                    service.salveaza(numeFis);
+//                }catch (FileNotFoundException el){
+//                    el.printStackTrace();
+//                }
+//            }
+//        });
+//    }
 
 }
