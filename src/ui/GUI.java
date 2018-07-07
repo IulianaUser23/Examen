@@ -2,6 +2,7 @@ package ui;
 
 import domain.Ruta;
 import domain.RutaCalatori;
+import domain.RutaMarfa;
 import service.Service;
 
 import javax.swing.*;
@@ -74,10 +75,8 @@ public class GUI extends JFrame {
         componentaFr.add(this.OrasDestinatie);
         componentaFr.add(this.labelDurata);
         componentaFr.add(this.Durata);
-
         componentaMS.add(this.labelTipuriVagoane);
         componentaMS.add(this.TipuriVagoane);
-
         componentaMS.add(this.labelTonaj);
         componentaMS.add(this.Tonaj);
 
@@ -109,8 +108,8 @@ public class GUI extends JFrame {
                 int dr = Integer.parseInt(Durata.getText());
                 int tp = Integer.parseInt(TipuriVagoane.getText());
                 try {
-                   Ruta r = new RutaCalatori(op, od, dr, tp);
-                   service.addRuta(r);
+                   Ruta rc = new RutaCalatori(op, od, dr, tp);
+                   service.addRuta(rc);
                } catch (Exception ex) {
                    JOptionPane.showMessageDialog(null, ex.getMessage());
               }
@@ -121,51 +120,23 @@ public class GUI extends JFrame {
     }
 
     private void handlerButonAddRutaMarfa() {
+        this.butonAddRutaCalatori.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String op =OrasPornire.getText();
+                String od = OrasDestinatie.getText();
+                int tn = Integer.parseInt(Tonaj.getText());
+                try {
+                    Ruta rm = new RutaMarfa(op,od,tn);
+                    service.addRuta(rm);
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
+                }
+                populeazaLista();
+            }
+        });
     }
-//    //creez functia de adaugare
-//    public void handlerButonAddFr(){
-//        this.butonAddF.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                int id = Integer.parseInt(Id.getText());
-//                String clsEnerg = ClsEnerg.getText();
-//                boolean areCongelator = AreCong.isValid();
-//                try {
-//                    Produs fr = new Frigider(id,clsEnerg,areCongelator);
-//                    service.addProdus(fr);
-//                } catch (Exception ex) {
-//                    JOptionPane.showMessageDialog(null, ex.getMessage());
-//                }
-//                populeazaLista();
-//                //pot pune sa imi stearga ce am adaugat eu in fiecare casuta dupa apasarea butonului add
-//                Id.setText("");
-//                ClsEnerg.setText("");
-//                AreCong.setText("");
-//
-//            }
-//        });
-//    }
-//    public void handlerButonAddM(){
-//        this.butonAddM.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                int id = Integer.parseInt(IdM.getText());
-//                double cantE = Double.parseDouble(CantE.getText());
-//                try {
-//                    Produs m = new MasinaSpalat(id,cantE);
-//                    service.addProdus(m);
-//                } catch (Exception ex) {
-//                    JOptionPane.showMessageDialog(null, ex.getMessage());
-//                }
-//                populeazaLista();
-//                //pot pune sa imi stearga ce am adaugat eu in fiecare casuta dupa apasarea butonului add
-//                IdM.setText("");
-//                CantE.setText("");
-//
-//            }
-//        });
-//    }
-//
+
 //
 //    //creez functia care atunci cand apas butonul salveaza sa faca operatiunea
 //    public void handlerButonSalveaza(){
