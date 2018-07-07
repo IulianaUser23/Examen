@@ -18,7 +18,7 @@ public class Service {
         this.repo = r;
     }
 
-    //functia de adaugare
+ //adaugare
     public void addRuta (Ruta r) throws Exception {
         this.repo.add(r);
     }
@@ -26,9 +26,9 @@ public class Service {
     public ArrayList<Ruta> getAll(){
         return this.repo.getAll();
     }
-    //functia de stergere
 
 
+//salveaza in fisier
 
 
 }
